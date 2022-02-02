@@ -612,6 +612,14 @@ BitVector X86RegisterInfo::getReservedRegs(const MachineFunction &MF) const {
     }
   }
 
+  // Edited(Evan)
+  // reserve the R15 register like Nacl for bounds
+  // TODO(Evan): do we also need to reserve the base pointer? or does it not matter?
+  Reserved.set(X86::R15);
+  Reserved.set(X86::R15D);
+  Reserved.set(X86::R15W);
+  Reserved.set(X86::R15B);
+
   assert(checkAllSuperRegsMarked(Reserved,
                                  {X86::SIL, X86::DIL, X86::BPL, X86::SPL,
                                   X86::SIH, X86::DIH, X86::BPH, X86::SPH}));
